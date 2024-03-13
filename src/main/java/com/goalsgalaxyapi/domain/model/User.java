@@ -1,6 +1,9 @@
 package com.goalsgalaxyapi.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -20,11 +23,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 60)
     private String name;
-    @Column(nullable = false)
+    @NotBlank
+    @Email
     private String email;
-    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 20)
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Goal> goals;
