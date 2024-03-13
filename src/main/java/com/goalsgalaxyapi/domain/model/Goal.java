@@ -2,6 +2,7 @@ package com.goalsgalaxyapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -21,6 +22,7 @@ public class Goal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @NotBlank
     private String name;
     private String description;
     private LocalDateTime deadline;
