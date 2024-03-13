@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Goal {
     @Column(nullable = false)
     private String name;
     private String description;
+    private LocalDateTime createdDate;
     private LocalDateTime deadline;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
