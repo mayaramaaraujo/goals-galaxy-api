@@ -1,13 +1,10 @@
 package com.goalsgalaxyapi.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +22,7 @@ public class Goal {
     @NotBlank
     private String name;
     private String description;
+    private LocalDateTime createdDate;
     private LocalDateTime deadline;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

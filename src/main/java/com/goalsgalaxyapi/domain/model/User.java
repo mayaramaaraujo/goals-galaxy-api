@@ -6,10 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -28,6 +25,7 @@ public class User {
     private String name;
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
     @NotBlank
     @Size(max = 20)
