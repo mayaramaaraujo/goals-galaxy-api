@@ -3,7 +3,7 @@ package com.goalsgalaxyapi.api.config;
 import com.goalsgalaxyapi.domain.repository.GoalRepository;
 import com.goalsgalaxyapi.domain.repository.TaskRepository;
 import com.goalsgalaxyapi.domain.repository.UserRepository;
-import com.goalsgalaxyapi.usecase.GoalService;
+import com.goalsgalaxyapi.usecase.GoalUseCase;
 import com.goalsgalaxyapi.usecase.TaskService;
 import com.goalsgalaxyapi.usecase.UserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ public class Config {
     }
 
     @Bean
-    GoalService goalService() {
-        return new GoalService(goalRepository);
+    GoalUseCase goalService() {
+        return new GoalUseCase(goalRepository, userRepository);
     }
 
     @Bean
