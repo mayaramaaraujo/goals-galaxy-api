@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,4 +34,13 @@ public class Goal {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public Goal(String name, String description, LocalDateTime createdDate, LocalDateTime deadline, Category category, User user) {
+        this.name = name;
+        this.description = description;
+        this.createdDate = createdDate;
+        this.deadline = deadline;
+        this.category = category;
+        this.user = user;
+        this.tasks = new ArrayList<>();
+    }
 }
