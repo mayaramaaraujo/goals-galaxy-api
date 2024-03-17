@@ -1,4 +1,4 @@
-package com.goalsgalaxyapi.service;
+package com.goalsgalaxyapi.usecase;
 
 import com.goalsgalaxyapi.domain.repository.TaskRepository;
 

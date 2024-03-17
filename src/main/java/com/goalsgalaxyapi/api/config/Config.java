@@ -3,12 +3,13 @@ package com.goalsgalaxyapi.api.config;
 import com.goalsgalaxyapi.domain.repository.GoalRepository;
 import com.goalsgalaxyapi.domain.repository.TaskRepository;
 import com.goalsgalaxyapi.domain.repository.UserRepository;
-import com.goalsgalaxyapi.service.GoalService;
-import com.goalsgalaxyapi.service.TaskService;
-import com.goalsgalaxyapi.service.UserService;
+import com.goalsgalaxyapi.usecase.GoalService;
+import com.goalsgalaxyapi.usecase.TaskService;
+import com.goalsgalaxyapi.usecase.UserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class Config {
@@ -21,10 +22,13 @@ public class Config {
 
     @Autowired
     TaskRepository taskRepository;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
     
     @Bean
-    UserService userService() {
-        return new UserService(userRepository);
+    UserUseCase userUseCase() {
+        return new UserUseCase(userRepository, passwordEncoder);
     }
 
     @Bean
