@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
@@ -15,21 +16,25 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Table(name = "app_user")
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    @Size(max = 60)
     private String name;
-    @NotBlank
-    @Email
     @Column(unique = true)
+    @NotBlank
     private String email;
     @NotBlank
-    @Size(max = 20)
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Goal> goals;
+
+    public User(String name, String email, String encryptedPassword) {
+        this.name = name;
+        this.email = email;
+        this.password = encryptedPassword;
+    }
 }
