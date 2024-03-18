@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Getter
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Task {
 
     @Id
@@ -25,5 +27,11 @@ public class Task {
     @JoinColumn(name = "goal_id", nullable = false)
     private Goal goal;
 
+    public Task(String name, String description, Goal goal) {
+        this.name = name;
+        this.description = description;
+        this.goal = goal;
+        this.done = false;
+    }
 }
 
