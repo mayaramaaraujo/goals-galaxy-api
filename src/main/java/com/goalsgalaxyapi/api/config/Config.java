@@ -4,7 +4,7 @@ import com.goalsgalaxyapi.domain.repository.GoalRepository;
 import com.goalsgalaxyapi.domain.repository.TaskRepository;
 import com.goalsgalaxyapi.domain.repository.UserRepository;
 import com.goalsgalaxyapi.usecase.GoalUseCase;
-import com.goalsgalaxyapi.usecase.TaskService;
+import com.goalsgalaxyapi.usecase.TaskUseCase;
 import com.goalsgalaxyapi.usecase.UserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,8 +37,8 @@ public class Config {
     }
 
     @Bean
-    TaskService taskService() {
-        return new TaskService(taskRepository);
+    TaskUseCase taskService() {
+        return new TaskUseCase(taskRepository, goalRepository);
     }
 
 }
