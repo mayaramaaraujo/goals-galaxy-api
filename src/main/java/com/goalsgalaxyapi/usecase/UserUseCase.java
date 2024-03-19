@@ -5,7 +5,11 @@ import com.goalsgalaxyapi.domain.repository.UserRepository;
 import com.goalsgalaxyapi.usecase.model.request.UserRequestModel;
 import com.goalsgalaxyapi.usecase.model.response.ResponseModel;
 import com.goalsgalaxyapi.usecase.model.response.UserResponseModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Optional;
 
 public class UserUseCase {
 
@@ -20,7 +24,7 @@ public class UserUseCase {
     public ResponseModel<UserResponseModel> create(UserRequestModel request) {
         try {
             if(userRepository.findByEmail(request.email()).isPresent()) {
-                return new ResponseModel<>(false, "Email already exists", null);
+                return new ResponseModel<>(false, HttpStatus.NOT_FOUND, "Email already exists", null);
             }
 
             String encryptedPassword = passwordEncoder.encode(request.password());
@@ -29,9 +33,23 @@ public class UserUseCase {
 
             User user = userRepository.save(newUser);
 
-            return new ResponseModel<>(true, null, new UserResponseModel(user.getId(), user.getName(), user.getEmail()));
+            return new ResponseModel<>(true, HttpStatus.CREATED, null, new UserResponseModel(user.getId(), user.getName(), user.getEmail()));
         } catch (Exception e) {
-            return new ResponseModel<>(false, e.getMessage(), null);
+            return new ResponseModel<>(false, HttpStatus.BAD_REQUEST, e.getMessage(), null);
+        }
+    }
+
+    public ResponseModel<UserResponseModel> getUser(Long id) {
+        try {
+            Optional<User> user = userRepository.findById(id);
+
+            if(user.isEmpty()) {
+                return new ResponseModel<>(false, HttpStatus.NOT_FOUND, "User not found", null);
+            }
+
+            return new ResponseModel<>(true, HttpStatus.OK, null, new UserResponseModel(user.get().getId(), user.get().getName(), user.get().getEmail()));
+        } catch (Exception e) {
+            return new ResponseModel<>(false, HttpStatus.BAD_REQUEST, e.getMessage(), null);
         }
     }
 }
