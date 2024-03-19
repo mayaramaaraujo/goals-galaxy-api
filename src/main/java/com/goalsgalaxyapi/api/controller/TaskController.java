@@ -7,6 +7,7 @@ import com.goalsgalaxyapi.usecase.model.TaskRequestModel;
 import com.goalsgalaxyapi.usecase.model.response.GoalResponseModel;
 import com.goalsgalaxyapi.usecase.model.response.ResponseModel;
 import com.goalsgalaxyapi.usecase.model.response.TaskResponseModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class TaskController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("/{id}")

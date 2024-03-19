@@ -6,6 +6,7 @@ import com.goalsgalaxyapi.usecase.model.request.UserRequestModel;
 import com.goalsgalaxyapi.usecase.model.response.ResponseModel;
 import com.goalsgalaxyapi.usecase.model.response.UserResponseModel;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class UserController {
             return ResponseEntity.status(400).body(response);
         }
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("/{id}")
