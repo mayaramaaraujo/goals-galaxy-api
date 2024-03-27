@@ -59,7 +59,7 @@ public class UserUseCaseTest {
     void givenUserAlreadyExists_whenCreatingUser_thenErrorMessageIsReturned() {
         UserRequestModel userRequestModel = new UserRequestModel("user", "alreadyexists@email.com", "12345");
 
-        when(userRepository.findByEmail("alreadyexists@email.com")).thenReturn(Optional.of(new User()));
+        when(userRepository.findByEmail("alreadyexists@email.com")).thenReturn(new User());
 
         ResponseModel<UserResponseModel> result = userUseCase.create(userRequestModel);
 
