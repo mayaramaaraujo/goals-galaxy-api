@@ -51,9 +51,21 @@ public class GoalUseCase {
            Goal newGoal = new Goal(request.name(), request.description(), DateFormatter.format(LocalDateTime.now()), deadline, category, user.get());
            Goal goal = goalRepository.save(newGoal);
 
-           return new ResponseModel<>(true, HttpStatus.CREATED, null,  new GoalResponseModel(goal.getId(), goal.getName(), goal.getDescription(), DateFormatter.localDateTimeToString(goal.getCreatedDate()), DateFormatter.localDateTimeToString(goal.getDeadline()), goal.getCategory(), goal.getTasks(), goal.getUser().getId()));
+           return new ResponseModel<>(true, HttpStatus.CREATED, null,  new GoalResponseModel(goal));
        } catch (Exception e) {
             return new ResponseModel<>(false, HttpStatus.BAD_REQUEST, e.getMessage(), null);
        }
+    }
+
+    public ResponseModel<GoalResponseModel> getGoal(Long userId, Long goalId) {
+        try {
+            Optional<Goal> goal = goalRepository.findByIdAndUserId(goalId, userId);
+
+            return goal.map(value -> new ResponseModel<>(true, HttpStatus.OK, null, new GoalResponseModel(value)))
+                    .orElseGet(() -> new ResponseModel<>(false, HttpStatus.BAD_REQUEST, "User or goal not found", null));
+
+        } catch (Exception e) {
+            return new ResponseModel<>(true, HttpStatus.BAD_REQUEST, e.getMessage(), null);
+        }
     }
 }
