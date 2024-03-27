@@ -70,7 +70,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public User update(@PathVariable Long id, @RequestBody User user) {
         return null;
     }

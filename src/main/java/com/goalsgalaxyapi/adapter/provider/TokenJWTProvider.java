@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 public class TokenJWTProvider implements TokenGateway {
+
     private final String secret;
 
     public TokenJWTProvider(String secret) {
@@ -36,7 +37,7 @@ public class TokenJWTProvider implements TokenGateway {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
             return JWT.require(algorithm)
-                    .withIssuer("User API")
+                    .withIssuer("Goals Galaxy API")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();

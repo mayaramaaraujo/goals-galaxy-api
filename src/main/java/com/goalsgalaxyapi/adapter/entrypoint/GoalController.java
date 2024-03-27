@@ -58,7 +58,7 @@ public class GoalController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public Goal update(@PathVariable Long id, @RequestBody Goal goal) {
         return null;
     }
